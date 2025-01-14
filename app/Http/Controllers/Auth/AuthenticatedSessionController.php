@@ -16,6 +16,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
+
         return view('auth.login');
     }
 
@@ -23,13 +24,15 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
-{
-    $request->authenticate();
+    {
 
-    $request->session()->regenerate();
 
-    return redirect()->route('dashboard'); // Langsung ke named route dashboard
-}
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        return redirect()->route('dashboard'); // Langsung ke named route dashboard
+    }
 
     /**
      * Destroy an authenticated session.
@@ -42,6 +45,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('login');
     }
 }
