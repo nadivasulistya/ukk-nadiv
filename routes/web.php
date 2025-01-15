@@ -4,21 +4,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+
 
 // Landing page
 Route::get('/', function () {
     return view('kerangka.master');
 });
 
-// Authentication Routes
-Auth::routes();
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
-    
+
     // Tambahkan rute lain yang memerlukan autentikasi
 });
 
@@ -39,3 +37,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
+
+// Authentication Routes
+
+include __DIR__ . '/auth.php';
