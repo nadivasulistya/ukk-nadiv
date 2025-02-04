@@ -99,7 +99,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
 // Logout Route
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->middleware('auth')
+    ->middleware('auth') 
     ->name('logout');
 
 // Authentication Routes

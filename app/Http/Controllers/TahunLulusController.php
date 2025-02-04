@@ -41,19 +41,22 @@ class TahunLulusController extends Controller
         return view('tahun_lulus.show', compact('tahunLulus'));
     }
 
-    public function edit(TahunLulus $tahunLulus) 
+    public function edit( $tahunLulus) 
     {
+      $tahunLulus = TahunLulus::findOrFail($tahunLulus);
+  
         return view('tahun_lulus.edit', compact('tahunLulus'));
     }
 
-    public function update(Request $request, TahunLulus $tahunLulus) 
+    public function update(Request $request, $id)
     {
+        $tahunLulus = TahunLulus::findOrFail($id);
+
         $validator = Validator::make($request->all(), [
             'tahun_lulus' => [
                 'required',
-                'max:10', 
-                Rule::unique('tbl_tahun_lulus', 'tahun_lulus')
-                    ->ignore($tahunLulus->id_tahun_lulus, 'id_tahun_lulus')
+                'max:10',
+                Rule::unique('tbl_tahun_lulus')->ignore($tahunLulus->id_tahun_lulus, 'id_tahun_lulus')
             ],
             'keterangan' => 'nullable|max:50'
         ]);
@@ -66,7 +69,7 @@ class TahunLulusController extends Controller
 
         $tahunLulus->update($request->all());
         return redirect()->route('tahun_lulus.index')
-            ->with('success', 'Tahun Lulus berhasil diupdate');
+            ->with('success', 'Tahun Lulus berhasil diperbarui');
     }
 
     public function destroy(TahunLulus $tahunLulus) 

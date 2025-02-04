@@ -14,7 +14,7 @@
     </div>
     @endif
 
-    <form action="{{ route('tahun-lulus.update', $tahunLulus->id) }}" method="POST">
+    <form action="{{ route('tahun_lulus.update', $tahunLulus->id_tahun_lulus) }}" method="POST">
         @csrf
         @method('PUT')
         
@@ -50,32 +50,8 @@
         </div>
 
         <div class="form-group">
-            <label>Alumni Terkait</label>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>NISN</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($tahunLulus->alumni as $alumni)
-                    <tr>
-                        <td>{{ $alumni->nama_depan }} {{ $alumni->nama_belakang }}</td>
-                        <td>{{ $alumni->nisn }}</td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="2" class="text-center">Tidak ada alumni terkait</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        <div class="form-group">
             <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{{ route('tahun-lulus.index') }}" class="btn btn-secondary">Batal</a>
+            <a href="{{ route('tahun_lulus.index') }}" class="btn btn-secondary">Batal</a>
         </div>
     </form>
 </div>
