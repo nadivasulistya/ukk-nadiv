@@ -182,7 +182,12 @@
 
         <!-- About School Section -->
         <section id="about" class="landing-section text-center">
-            <h2>Tentang {{$sekolah->nama_sekolah}}</h2>
+            @if($sekolah)
+            <h2>{{$sekolah->nama_sekolah}}</h2>
+           @else
+
+             <h2>Tentang Sekolah Kami</h2>
+          @endif
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <p>SMK Antartika 1 Sidoarjo adalah sekolah menengah kejuruan unggulan yang telah berdiri sejak tahun 1974. Dengan komitmen untuk menghasilkan lulusan berkualitas, kami terus mengembangkan program pendidikan yang relevan dengan kebutuhan industri.</p>
