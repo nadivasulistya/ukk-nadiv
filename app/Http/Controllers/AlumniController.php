@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Alumni;
@@ -31,7 +32,7 @@ class AlumniController extends Controller
     }
 
     public function store(Request $request)
-    {        
+    {
 
         $validator = Validator::make($request->all(), [
             'nisn' => 'required|unique:tbl_alumni|max:20',
@@ -68,6 +69,7 @@ class AlumniController extends Controller
 
     public function edit(Alumni $alumni)
     {
+
         $tahunLulus = TahunLulus::all();
         $konsentrasiKeahlian = KonsentrasiKeahlian::all();
         $statusAlumni = StatusAlumni::all();
@@ -77,8 +79,8 @@ class AlumniController extends Controller
     public function update(Request $request, Alumni $alumni)
     {
         $validator = Validator::make($request->all(), [
-            'nisn' => 'required|max:20|unique:tbl_alumni,nisn,'.$alumni->id_alumni.',id_alumni',
-            'nik' => 'required|max:20|unique:tbl_alumni,nik,'.$alumni->id_alumni.',id_alumni',
+            'nisn' => 'required|max:20|unique:tbl_alumni,nisn,' . $alumni->id_alumni . ',id_alumni',
+            'nik' => 'required|max:20|unique:tbl_alumni,nik,' . $alumni->id_alumni . ',id_alumni',
             'nama_depan' => 'required|max:50',
             'nama_belakang' => 'required|max:50',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
@@ -86,7 +88,7 @@ class AlumniController extends Controller
             'tgl_lahir' => 'required|date',
             'alamat' => 'required|max:50',
             'no_hp' => 'required|max:15',
-            'email' => 'required|email|max:50|unique:tbl_alumni,email,'.$alumni->id_alumni.',id_alumni',
+            'email' => 'required|email|max:50|unique:tbl_alumni,email,' . $alumni->id_alumni . ',id_alumni',
             'password' => 'nullable|min:6',
             'id_tahun_lulus' => 'required|exists:tb_tahun_lulus,id_tahun_lulus',
             'id_konsentrasi_keahlian' => 'required|exists:tbl_konsentrasi_keahlian,id_konsentrasi_keahlian',
@@ -112,8 +114,9 @@ class AlumniController extends Controller
             ->with('success', 'Data Alumni berhasil diupdate');
     }
 
-    public function destroy(Alumni $alumni)
+    public function destroy($alumni)
     {
+        $alumni = Alumni::findOrFail($alumni);
         try {
             $alumni->delete();
             return redirect()->route('alumni.index')
@@ -130,9 +133,9 @@ class AlumniController extends Controller
         $konsentrasiKeahlian = KonsentrasiKeahlian::all();
         $statusAlumni = StatusAlumni::all();
         $testimonis = Testimoni::with('alumni')->latest()->get();
-        
+
         return view('alumni.register', compact(
-            'tahunLulus', 
+            'tahunLulus',
             'konsentrasiKeahlian',
             'statusAlumni',
             'testimonis'
@@ -174,7 +177,7 @@ class AlumniController extends Controller
             $data['status_login'] = '1';
             $data['email'] = Auth::user()->email;
             $data['password'] = Auth::user()->password;
-            
+
             Alumni::create($data);
 
             return redirect()->route('home')
@@ -188,6 +191,7 @@ class AlumniController extends Controller
 
     public function show($id)
     {
+
         $alumni = Alumni::with([
             'user',
             'tahunLulus',

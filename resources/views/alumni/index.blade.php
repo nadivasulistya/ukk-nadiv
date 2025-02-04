@@ -10,9 +10,9 @@
                 </div>
                 <div class="card-body">
                     @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
                     @endif
 
                     <div class="table-responsive">
@@ -21,7 +21,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Foto</th>
-                                    <th>NIS</th>
+                                    <th>NIK</th>
                                     <th>NISN</th>
                                     <th>Nama Lengkap</th>
                                     <th>Jurusan</th>
@@ -35,52 +35,51 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>
-                                        <img src="{{ $alumni->foto ? asset('storage/'.$alumni->foto) : asset('images/default-avatar.png') }}" 
-                                             alt="Foto {{ $alumni->nama_depan }}"
-                                             class="rounded-circle"
-                                             width="40" height="40"
-                                             style="object-fit: cover;">
+                                        <img src="{{ $alumni->foto ? asset('storage/'.$alumni->foto) : asset('images/images.png') }}"
+                                            alt="Foto {{ $alumni->nama_depan }}"
+                                            class="rounded-circle"
+                                            width="40" height="40"
+                                            style="object-fit: cover;">
                                     </td>
-                                    <td>{{ $alumni->nis }}</td>
+                                    <td>{{ $alumni->nik }}</td>
                                     <td>{{ $alumni->nisn }}</td>
                                     <td>{{ $alumni->nama_depan }} {{ $alumni->nama_belakang }}</td>
-                                    <td>{{ optional($alumni->konsentrasiKeahlian)->nama_konsentrasi_keahlian ?? '-' }}</td>
+                                    <td>{{ optional($alumni->konsentrasiKeahlian)->konsentrasi_keahlian ?? '-' }}</td>
                                     <td>{{ optional($alumni->tahunLulus)->tahun_lulus ?? '-' }}</td>
                                     <td>
-                                        @php
-                                            $tracerKerjaCount = optional($alumni->tracerKerja)->count() ?? 0;
-                                            $tracerKuliahCount = optional($alumni->tracerKuliah)->count() ?? 0;
-                                        @endphp
-                                        
-                                        @if($tracerKerjaCount > 0)
-                                            <span class="badge bg-success">Bekerja</span>
-                                        @elseif($tracerKuliahCount > 0)
-                                            <span class="badge bg-info">Kuliah</span>
+
+                                        @if($alumni->tracerKerja && $alumni->tracerKuliah)
+                                        <span class="badge bg-primary">Bekerja & Berkuliah</span>
+                                        @elseif($alumni->tracerKerja)
+                                        <span class="badge bg-success">Bekerja</span>
+                                        @elseif($alumni->tracerKuliah)
+                                        <span class="badge bg-info">Berkuliah</span>
                                         @else
-                                            <span class="badge bg-secondary">Belum Ada Data</span>
+                                        <span class="badge bg-secondary">Belum Ada Data</span>
                                         @endif
+
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <a href="{{ route('alumni.detail', $alumni->id_alumni) }}" 
-                                               class="btn btn-info btn-sm"
-                                               title="Detail">
+                                            <a href="{{ route('alumni.detail', $alumni->id_alumni) }}"
+                                                class="btn btn-info btn-sm"
+                                                title="Detail">
                                                 <i class="bi bi-eye-fill"></i>
                                             </a>
-                                            <a href="{{ route('alumni.edit', $alumni->id_alumni) }}" 
-                                               class="btn btn-warning btn-sm"
-                                               title="Edit">
+                                            <a href="{{ route('alumni.edit', $alumni->id_alumni) }}"
+                                                class="btn btn-warning btn-sm"
+                                                title="Edit">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
-                                            <form action="{{ route('alumni.destroy', $alumni->id_alumni) }}" 
-                                                  method="POST" 
-                                                  onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
-                                                  style="display: inline;">
+                                            <form action="{{ route('alumni.destroy', $alumni->id_alumni) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
+                                                style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" 
-                                                        class="btn btn-danger btn-sm"
-                                                        title="Hapus">
+                                                <button type="submit"
+                                                    class="btn btn-danger btn-sm"
+                                                    title="Hapus">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </form>

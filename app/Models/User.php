@@ -1,7 +1,7 @@
 <?php
-  
+
 namespace App\Models;
-  
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -58,8 +58,8 @@ class User extends Authenticatable
     protected function type(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => ["user", "admin"][$value],
-            set: fn ($value) => is_numeric($value) ? $value : array_search($value, ["user", "admin"])
+            get: fn($value) => ["user", "admin"][$value],
+            set: fn($value) => is_numeric($value) ? $value : array_search($value, ["user", "admin"])
         );
     }
 
@@ -71,7 +71,7 @@ class User extends Authenticatable
         return $this->hasOne(Alumni::class, 'id_user');
     }
 
-    public function isAlumni(): bool 
+    public function isAlumni(): bool
     {
         return $this->alumni()->exists();
     }
