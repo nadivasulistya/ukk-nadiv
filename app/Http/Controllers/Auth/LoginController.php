@@ -57,9 +57,9 @@ class LoginController extends Controller
 
         // Proses autentikasi
         if (auth()->attempt(['email' => $input['email'], 'password' => $input['password']])) {
-            // Redirect berdasarkan tipe pengguna
-            if (auth()->user()->type == 'admin') {
-                return redirect()->route('admin.home');
+            // Redirect berdasarkan tipe pengguna 
+            if (auth()->user()->type == 'admin') { 
+                return redirect()->route('dashboard');
             } else {
                 return redirect()->route('home');
             }
@@ -71,12 +71,19 @@ class LoginController extends Controller
     }
 
     /**
-     * Show the login form.
+     * Log the user out of the application.
      *
-     * @return \Illuminate\View\View
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function logout(Request $request)
     {
-        return view('auth.login');
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/'); // Redirect ke landing page
     }
 }

@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'type'
+        'type',
+        'avatar'
     ];
 
     /**
@@ -55,7 +58,21 @@ class User extends Authenticatable
     protected function type(): Attribute
     {
         return new Attribute(
-            get: fn ($value) =>  ["user", "admin",][$value],
+            get: fn ($value) => ["user", "admin"][$value],
+            set: fn ($value) => is_numeric($value) ? $value : array_search($value, ["user", "admin"])
         );
+    }
+
+    /**
+     * Get the alumni associated with the user.
+     */
+    public function alumni(): HasOne
+    {
+        return $this->hasOne(Alumni::class, 'id_user');
+    }
+
+    public function isAlumni(): bool 
+    {
+        return $this->alumni()->exists();
     }
 }

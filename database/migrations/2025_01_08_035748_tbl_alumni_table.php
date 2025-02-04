@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('tbl_alumni', function (Blueprint $table) {
             $table->id('id_alumni'); // Primary key
+            $table->foreignId('id_user')
+                ->constrained('users')
+                ->cascadeOnDelete();
             $table->foreignId('id_tahun_lulus')
                 ->constrained('tbl_tahun_lulus', 'id_tahun_lulus')
                 ->cascadeOnDelete();

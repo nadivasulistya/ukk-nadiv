@@ -14,8 +14,11 @@
         <div class="row h-100">
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
-                    <div class="auth-logo">
-                        <a href="/"><img src="{{ asset('template/assets/compiled/svg/logo.svg') }}" alt="Logo"></a>
+                    <div class="auth-logo mb-4">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <i class="bi bi-mortarboard-fill fs-1 text-primary"></i>
+                            <h2 class="font-bold text-primary ms-2 mb-0">Tracer Study</h2>
+                        </div>
                     </div>
                     <h1 class="auth-title">Log in.</h1>
                     <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
@@ -64,7 +67,7 @@
                                 class="form-check-input me-2">
                             <label class="form-check-label text-gray-600" for="remember_me">
                                 Keep me logged in
-                            </label>
+                            </label> 
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">

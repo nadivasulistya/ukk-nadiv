@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('id_bidang_keahlian'); // Menggunakan method id() untuk primary key auto increment
             $table->string('kode_bidang_keahlian', 10)->unique(); // Menghilangkan spasi dan menambahkan unique constraint
             $table->string('bidang_keahlian', 100);
+            $table->timestamps();
         });
     }
 

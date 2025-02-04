@@ -13,6 +13,7 @@
 
 <body>
     <script src="{{ asset('template/assets/static/js/initTheme.js') }}"></script>
+    <script src="{{ asset('template/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
     <div id="app">
 
         @include('include.sidebar')
@@ -38,6 +39,7 @@
     </div>
     
     @include('include.scripct')
+    @stack('scripts')
 
 </body>
 

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('no_telp', 15)->nullable(); // VARCHAR(15) nullable
             $table->string('website', 50)->nullable(); // VARCHAR(50) nullable
             $table->string('email', 50)->nullable(); // VARCHAR(50) nullable
+            $table->timestamps();
         });
     }
 

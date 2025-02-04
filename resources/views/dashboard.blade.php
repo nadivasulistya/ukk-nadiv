@@ -1,4 +1,4 @@
-{{-- dashboard --}}
+{{-- dashboard
 @extends('kerangka.master')
 
 @section('content')
@@ -264,4 +264,4 @@
     </section>
 </div>
 
-@endsection
+@endsection --}}

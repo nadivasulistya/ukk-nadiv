@@ -24,10 +24,28 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="index.html">
-                        <img src="{{ asset('template/assets/compiled/svg/logo.svg') }}" alt="Logo">
-                    </a>
-                </div>
+    <a href="{{ route('dashboard') }}">
+        <div class="d-flex align-items-center justify-content-center gap-2 py-3">
+            <i class="bi bi-mortarboard-fill fs-2 text-primary"></i>
+            <h2 class="font-bold text-primary mb-0">Tracer Study</h2>
+        </div>
+    </a>
+</div>
+
+<style>
+    .logo a {
+        text-decoration: none;
+    }
+    
+    .logo h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .bi-mortarboard-fill {
+        font-size: 2rem;
+    }
+</style>
                 <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="iconify iconify--system-uicons" width="20" height="20" viewBox="0 0 21 21">
                         <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -50,16 +68,59 @@
             </div>
         </div>
         <div class="sidebar-menu">
-            <ul class="menu">
-                <li class="sidebar-title">Menu</li>
-                <li class="sidebar-item active">
-                    <a href="{{ route('dashboard') }}" class="sidebar-link">
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <ul class="menu">
+        <li class="sidebar-title">Menu</li>
+        <li class="sidebar-item active">
+            <a href="{{ route('dashboard') }}" class="sidebar-link">
+                <i class="bi bi-grid-fill"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="sidebar-item active">
+            <a href="{{ route('sekolah.index') }}" class="sidebar-link">
+                <i class="bi bi-building-fill"></i>
+                <span>Sekolah</span>
+            </a>
+        </li>
+        <li class="sidebar-title">Data Sekolah</li>
+        <li class="sidebar-item active">
+            <a href="{{ route('bidang_keahlian.index') }}" class="sidebar-link">
+                <i class="bi bi-briefcase-fill"></i>
+                <span>Bidang Keahlian</span>
+            </a>
+        </li>
+        <li class="sidebar-item active">
+            <a href="{{ route('program_keahlian.index') }}" class="sidebar-link">
+                <i class="bi bi-award-fill"></i>
+                <span>Program Keahlian</span>
+            </a>
+        </li>
+        <li class="sidebar-item active">
+            <a href="{{ route('konsentrasi_keahlian.index') }}" class="sidebar-link">
+                <i class="bi bi-mortarboard-fill fs-5"></i>
+                <span>Konsentrasi Keahlian</span>
+            </a>
+        </li>
+        <li class="sidebar-item active">
+            <a href="{{ route('tahun_lulus.index') }}" class="sidebar-link">
+                <i class="bi bi-calendar-check-fill"></i>
+                <span>Tahun Lulus</span>
+            </a>
+        </li>
+        <li class="sidebar-item active">
+            <a href="{{ route('status_alumni.index') }}" class="sidebar-link">
+                <i class="bi bi-person-badge-fill"></i>
+                <span>Status Alumni</span>
+            </a>
+        </li>
+        <li class="sidebar-item active">
+            <a href="{{ route('alumni.index') }}" class="sidebar-link">
+                <i class="bi bi-people-fill"></i>
+                <span>Data Alumni</span>
+            </a>
+        </li>
+    </ul>
+</div>
         <!-- Tombol logout -->
 
         @auth
