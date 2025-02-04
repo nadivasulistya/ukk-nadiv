@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\TahunLulus;
@@ -6,20 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class TahunLulusController extends Controller 
+class TahunLulusController extends Controller
 {
-    public function index() 
+    public function index()
     {
         $tahunLulus = TahunLulus::paginate(10);
         return view('tahun_lulus.index', compact('tahunLulus'));
     }
 
-    public function create() 
+    public function create()
     {
         return view('tahun_lulus.create');
     }
 
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'tahun_lulus' => 'required|max:10|unique:tbl_tahun_lulus,tahun_lulus',
@@ -36,15 +37,15 @@ class TahunLulusController extends Controller
             ->with('success', 'Tahun Lulus berhasil ditambahkan');
     }
 
-    public function show(TahunLulus $tahunLulus) 
+    public function show(TahunLulus $tahunLulus)
     {
         return view('tahun_lulus.show', compact('tahunLulus'));
     }
 
-    public function edit( $tahunLulus) 
+    public function edit($tahunLulus)
     {
-      $tahunLulus = TahunLulus::findOrFail($tahunLulus);
-  
+        $tahunLulus = TahunLulus::findOrFail($tahunLulus);
+
         return view('tahun_lulus.edit', compact('tahunLulus'));
     }
 
@@ -72,9 +73,12 @@ class TahunLulusController extends Controller
             ->with('success', 'Tahun Lulus berhasil diperbarui');
     }
 
-    public function destroy(TahunLulus $tahunLulus) 
+    public function destroy($tahunLulus)
     {
+
+        $tahunLulus = TahunLulus::findOrFail($tahunLulus);
         try {
+            // dd($tahunLulus);
             // Periksa apakah tahun lulus memiliki alumni
             if ($tahunLulus->alumni()->exists()) {
                 return redirect()->route('tahun_lulus.index')

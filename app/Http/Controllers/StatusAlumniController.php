@@ -1,24 +1,25 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\StatusAlumni;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class StatusAlumniController extends Controller 
+class StatusAlumniController extends Controller
 {
-    public function index() 
+    public function index()
     {
         $statusAlumni = StatusAlumni::paginate(10);
         return view('status_alumni.index', compact('statusAlumni'));
     }
 
-    public function create() 
+    public function create()
     {
         return view('status_alumni.create');
     }
 
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'status' => 'required|max:25|unique:tbl_status_alumni,status'
@@ -35,13 +36,15 @@ class StatusAlumniController extends Controller
             ->with('success', 'Status Alumni berhasil ditambahkan');
     }
 
-    public function edit(StatusAlumni $statusAlumni) 
+    public function edit($statusAlumni)
     {
-        return view('statu_alumni.edit', compact('statusAlumni'));
+        $statusAlumni = StatusAlumni::findOrFail($statusAlumni);
+        return view('status_alumni.edit', compact('statusAlumni'));
     }
 
-    public function update(Request $request, StatusAlumni $statusAlumni) 
+    public function update(Request $request, $statusAlumni)
     {
+        $statusAlumni = StatusAlumni::findOrFail($statusAlumni);
         $validator = Validator::make($request->all(), [
             'status' => 'required|max:25|unique:tbl_status_alumni,status,' . $statusAlumni->id_status_alumni . ',id_status_alumni'
         ]);
@@ -57,8 +60,10 @@ class StatusAlumniController extends Controller
             ->with('success', 'Status Alumni berhasil diupdate');
     }
 
-    public function destroy(StatusAlumni $statusAlumni) 
+    public function destroy($statusAlumni)
     {
+
+        $statusAlumni = StatusAlumni::findOrFail($statusAlumni);
         try {
             // Cek apakah status alumni memiliki alumni terkait
             if ($statusAlumni->alumni()->exists()) {

@@ -8,30 +8,29 @@
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+            <li>{{ $error }}</li>
             @endforeach
         </ul>
     </div>
     @endif
 
-    <form action="{{ route('status_alumni.update', $statusAlumni) }}" method="POST">
+    <form action="{{ route('status_alumni.update', $statusAlumni->id_status_alumni) }}" method="POST">
         @csrf
         @method('PUT')
-        
+
         <div class="form-group">
             <label for="status">Status Alumni</label>
-            <input 
-                type="text" 
-                name="status" 
-                class="form-control @error('status') is-invalid @enderror" 
+            <input
+                type="text"
+                name="status"
+                class="form-control @error('status') is-invalid @enderror"
                 value="{{ old('status', $statusAlumni->status) }}"
                 required
-                maxlength="25"
-            >
+                maxlength="25">
             @error('status')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
             @enderror
         </div>
 

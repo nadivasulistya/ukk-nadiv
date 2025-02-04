@@ -19,13 +19,13 @@ use App\Http\Controllers\UserProfileController;
 // Landing page sebagai halaman default
 Route::get('/', [LandingController::class, 'index'])->name('home');
 
-/*------------------------------------------? 
+/*------------------------------------------?
 Normal Users Routes
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:user'])->group(function () {
     // Route untuk user biasa
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    
+
     Route::resource('tracer_kuliah', TracerKuliahController::class);
 
     Route::resource('tracer_kerja', TracerKerjaController::class);
@@ -54,7 +54,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     // Rute resource untuk Sekolah
     Route::resource('sekolah', SekolahController::class);
-        
+
     // Atau jika ingin lebih spesifik
     Route::get('/sekolah', [SekolahController::class, 'index'])->name('sekolah.index');
     Route::get('/sekolah/create', [SekolahController::class, 'create'])->name('sekolah.create');
@@ -94,13 +94,12 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::resource('alumni', AlumniController::class);
     Route::get('/alumni/{id}/detail', [AlumniController::class, 'show'])->name('alumni.detail');
-
 });
 
 // Logout Route
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->middleware('auth') 
+    ->middleware('auth')
     ->name('logout');
 
 // Authentication Routes
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

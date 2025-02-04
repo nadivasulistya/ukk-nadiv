@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
         if (Auth::user()->type == 'admin') {
             return redirect()->intended(route('dashboard', absolute: false));
         }
-        
+
         return redirect()->intended(route('home', absolute: false));
     }
 
@@ -42,12 +42,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('home'); // Redirect ke root URL (landing page)
+        return redirect('/'); // Redirect ke root URL (landing page)
     }
 }
