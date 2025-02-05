@@ -71,18 +71,6 @@
                                                 title="Edit">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
-                                            <form action="{{ route('alumni.destroy', $alumni->id_alumni) }}"
-                                                method="POST"
-                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
-                                                style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="btn btn-danger btn-sm"
-                                                    title="Hapus">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                            </form>
                                         </div>
                                     </td>
                                 </tr>

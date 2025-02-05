@@ -24,8 +24,6 @@
         </div>
         <div class="col-md-6">
             <form action="{{ route('tahun_lulus.index') }}" method="GET" class="form-inline justify-content-end">
-                <input type="text" name="search" class="form-control mr-2" placeholder="Cari tahun lulus">
-                <button type="submit" class="btn btn-secondary">Cari</button>
             </form>
         </div>
     </div>

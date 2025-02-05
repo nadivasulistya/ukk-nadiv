@@ -67,17 +67,18 @@ class AlumniController extends Controller
             ->with('success', 'Data Alumni berhasil ditambahkan');
     }
 
-    public function edit(Alumni $alumni)
+    public function edit( $alumni)
     {
-
+        $alumni = Alumni::findOrFail($alumni);
         $tahunLulus = TahunLulus::all();
         $konsentrasiKeahlian = KonsentrasiKeahlian::all();
         $statusAlumni = StatusAlumni::all();
         return view('alumni.edit', compact('alumni', 'tahunLulus', 'konsentrasiKeahlian', 'statusAlumni'));
     }
 
-    public function update(Request $request, Alumni $alumni)
-    {
+    public function update(Request $request, $alumni)
+    {   
+        $alumni = Alumni::findOrFail($alumni);
         $validator = Validator::make($request->all(), [
             'nisn' => 'required|max:20|unique:tbl_alumni,nisn,' . $alumni->id_alumni . ',id_alumni',
             'nik' => 'required|max:20|unique:tbl_alumni,nik,' . $alumni->id_alumni . ',id_alumni',
@@ -88,19 +89,16 @@ class AlumniController extends Controller
             'tgl_lahir' => 'required|date',
             'alamat' => 'required|max:50',
             'no_hp' => 'required|max:15',
-            'email' => 'required|email|max:50|unique:tbl_alumni,email,' . $alumni->id_alumni . ',id_alumni',
             'password' => 'nullable|min:6',
-            'id_tahun_lulus' => 'required|exists:tb_tahun_lulus,id_tahun_lulus',
+            'id_tahun_lulus' => 'required|exists:tbl_tahun_lulus,id_tahun_lulus',
             'id_konsentrasi_keahlian' => 'required|exists:tbl_konsentrasi_keahlian,id_konsentrasi_keahlian',
             'id_status_alumni' => 'required|exists:tbl_status_alumni,id_status_alumni',
         ]);
-
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-
         $data = $request->all();
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
@@ -110,13 +108,14 @@ class AlumniController extends Controller
 
         $alumni->update($data);
 
-        return redirect()->route('alumni.index')
+        return redirect('/alumni')
             ->with('success', 'Data Alumni berhasil diupdate');
     }
 
     public function destroy($alumni)
     {
         $alumni = Alumni::findOrFail($alumni);
+        dd($alumni);
         try {
             $alumni->delete();
             return redirect()->route('alumni.index')

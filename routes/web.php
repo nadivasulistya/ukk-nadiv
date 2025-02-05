@@ -94,6 +94,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::resource('alumni', AlumniController::class);
     Route::get('/alumni/{id}/detail', [AlumniController::class, 'show'])->name('alumni.detail');
+    Route::delete('/alumni/{id}', 'AlumniController@destroy')->name('alumni.destroy');
 });
 
 // Logout Route
