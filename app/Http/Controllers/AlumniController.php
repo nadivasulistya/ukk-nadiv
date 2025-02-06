@@ -68,7 +68,7 @@ class AlumniController extends Controller
     }
 
     public function edit( $alumni)
-    {
+    { 
         $alumni = Alumni::findOrFail($alumni);
         $tahunLulus = TahunLulus::all();
         $konsentrasiKeahlian = KonsentrasiKeahlian::all();

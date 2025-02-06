@@ -15,6 +15,7 @@ use App\Http\Controllers\TracerKerjaController;
 use App\Http\Controllers\TracerKuliahController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\IdentitasController;
 
 // Landing page sebagai halaman default
 Route::get('/', [LandingController::class, 'index'])->name('home');
@@ -95,6 +96,18 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('alumni', AlumniController::class);
     Route::get('/alumni/{id}/detail', [AlumniController::class, 'show'])->name('alumni.detail');
     Route::delete('/alumni/{id}', 'AlumniController@destroy')->name('alumni.destroy');
+
+    Route::middleware(['auth'])->group(function () {
+        // API route untuk generate NISN dan NIK
+        Route::post('/api/identitas/generate', [IdentitasController::class, 'generateIdentitas'])
+             ->name('identitas.generate');
+        
+        // Routes untuk operasi CRUD
+        Route::post('/identitas', [IdentitasController::class, 'store'])
+             ->name('identitas.store');
+        
+        Route::put('/identitas/{id}', [IdentitasController::class, 'update'])
+             ->name('identitas.update');
 });
 
 // Logout Route
