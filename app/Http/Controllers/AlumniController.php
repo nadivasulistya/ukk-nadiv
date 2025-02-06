@@ -7,6 +7,7 @@ use App\Models\TahunLulus;
 use App\Models\KonsentrasiKeahlian;
 use App\Models\StatusAlumni;
 use App\Models\Testimoni;
+use App\Models\RawStudentData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -200,5 +201,17 @@ class AlumniController extends Controller
         ])->findOrFail($id);
 
         return view('admin.alumni_detail', compact('alumni'));
+    }
+
+    public function searchStudent(Request $request)
+    {
+        $term = $request->get('term');
+        
+        $students = RawStudentData::where('name', 'LIKE', "%{$term}%")
+            ->select('name', 'nisn', 'nik')
+            ->limit(5)
+            ->get();
+            
+        return response()->json($students);
     }
 }

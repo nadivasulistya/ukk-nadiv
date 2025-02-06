@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CreateUsersSeeder::class,
             StatusAlumniSeeder::class,
-            SekolahSeed::class
+            SekolahSeed::class,
+            RawStudentDataSeeder::class
         ]);
     }
 }

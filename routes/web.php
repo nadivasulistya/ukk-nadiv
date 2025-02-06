@@ -20,6 +20,9 @@ use App\Http\Controllers\IdentitasController;
 // Landing page sebagai halaman default
 Route::get('/', [LandingController::class, 'index'])->name('home');
 
+Route::get('/alumni/search', [AlumniController::class, 'searchStudent'])
+        ->name('alumni.search');
+
 /*------------------------------------------?
 Normal Users Routes
 --------------------------------------------*/
@@ -37,6 +40,8 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
         ->name('alumni.register');
     Route::post('/alumni/register', [AlumniController::class, 'registerAlumni'])
         ->name('alumni.register.store');
+
+    
 
     // User Profile Routes
     Route::prefix('profile')->group(function () {
@@ -96,18 +101,6 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('alumni', AlumniController::class);
     Route::get('/alumni/{id}/detail', [AlumniController::class, 'show'])->name('alumni.detail');
     Route::delete('/alumni/{id}', 'AlumniController@destroy')->name('alumni.destroy');
-
-    Route::middleware(['auth'])->group(function () {
-        // API route untuk generate NISN dan NIK
-        Route::post('/api/identitas/generate', [IdentitasController::class, 'generateIdentitas'])
-             ->name('identitas.generate');
-        
-        // Routes untuk operasi CRUD
-        Route::post('/identitas', [IdentitasController::class, 'store'])
-             ->name('identitas.store');
-        
-        Route::put('/identitas/{id}', [IdentitasController::class, 'update'])
-             ->name('identitas.update');
 });
 
 // Logout Route
